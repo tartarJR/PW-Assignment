@@ -39,6 +39,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
         employeeService.createEmployee(employee);
 
-        logger.info("employee table has been initialized: " + employeeService.getEmployeeList().size());
+        logger.info("employee table has been populated: " + employeeService.getEmployeeList().size());
     }
 }
