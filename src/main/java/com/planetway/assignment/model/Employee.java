@@ -1,5 +1,6 @@
 package com.planetway.assignment.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,5 +23,6 @@ public class Employee {
     private Employee supervisor;
 
     @OneToMany(mappedBy = "supervisor", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("supervisor")
     private List<Employee> employees;
 }
