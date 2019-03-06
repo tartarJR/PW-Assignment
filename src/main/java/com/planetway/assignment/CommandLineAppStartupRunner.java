@@ -23,6 +23,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
         logger.info("starting employee table has been initialization..");
 
+        employeeService.deleteEmployees();
+
         // creating supervisors first to avoid FK constraint violation
         Employee supervisor = new Employee();
         supervisor.setFirstName("Margus");
@@ -37,6 +39,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
         employeeService.createEmployee(employee);
 
-        logger.info("employee table has been initialized..");
+        logger.info("employee table has been initialized: " + employeeService.getEmployeeList().size());
     }
 }
