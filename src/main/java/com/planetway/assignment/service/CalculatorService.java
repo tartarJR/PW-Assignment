@@ -19,20 +19,10 @@ public class CalculatorService {
     private String[] OPS_ARRAY = {SUMMATION_OPERATION, SUBTRACTION_OPERATION, MULTIPLICATION_OPERATION, DIVISION_OPERATION};
 
     public CalculateResponse runCalculator(String operation, BigDecimal num1, BigDecimal num2) {
-        // TODO find a better practice for input validation and a more efficient way than using if/else blocks
-        if (operation == null) {
-            throw new InvalidParameterException(InvalidParameterException.OPERATION_MISSING_MESSAGE);
-        } else if (!Arrays.asList(OPS_ARRAY).contains(operation)) {
-            throw new InvalidParameterException(InvalidParameterException.INVALID_OPERATOR_MESSAGE);
-        } else if (num1 == null) {
-            throw new InvalidParameterException(InvalidParameterException.FIRST_NUM_MISSING_MESSAGE);
-        } else if (num2 == null) {
-            throw new InvalidParameterException(InvalidParameterException.SECOND_NUM_MISSING_MESSAGE);
-        } else if (operation.equals(DIVISION_OPERATION) && BigDecimal.ZERO.compareTo(num2) == 0) {
-            throw new InvalidParameterException(InvalidParameterException.DIVISOR_IS_ZERO_MESSAGE);
-        } else {
-            return new CalculateResponse(calculate(operation, num1, num2));
-        }
+
+        validateInput(operation, num1, num2);
+
+        return new CalculateResponse(calculate(operation, num1, num2));
     }
 
     private BigDecimal calculate(String operation, BigDecimal num1, BigDecimal num2) {
@@ -57,4 +47,21 @@ public class CalculatorService {
         return result != null ? result.setScale(2, RoundingMode.CEILING) : null;
     }
 
+    /* TODO Find a better practice for input validation and a more efficient way than using if/else blocks
+       Custom Spring validator with custom annotations can be used.
+       Skipping it for now since it is a bit out of scope for this assignment
+    */
+    private void validateInput(String operation, BigDecimal num1, BigDecimal num2) {
+        if (operation == null) {
+            throw new InvalidParameterException(InvalidParameterException.OPERATION_MISSING_MESSAGE);
+        } else if (!Arrays.asList(OPS_ARRAY).contains(operation)) {
+            throw new InvalidParameterException(InvalidParameterException.INVALID_OPERATOR_MESSAGE);
+        } else if (num1 == null) {
+            throw new InvalidParameterException(InvalidParameterException.FIRST_NUM_MISSING_MESSAGE);
+        } else if (num2 == null) {
+            throw new InvalidParameterException(InvalidParameterException.SECOND_NUM_MISSING_MESSAGE);
+        } else if (operation.equals(DIVISION_OPERATION) && BigDecimal.ZERO.compareTo(num2) == 0) {
+            throw new InvalidParameterException(InvalidParameterException.DIVISOR_IS_ZERO_MESSAGE);
+        }
+    }
 }
