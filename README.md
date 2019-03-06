@@ -10,5 +10,5 @@ Solutions for task 1, task 2, task 3 and bonus task can be found in this reposit
  * For bonus task, I used PostgreSQL for database and JPA-Hibernate for persistence.
  * For bonus task, an EmployeeDTO class might be used for having a better encapsulation of domain and repository layers from Service and Controller layers and to avoid partly complex JSON structure caused by self-reference.
  * I have a CommandLineRunner implementation for database seeding. Seeding can be done via raw SQL or EventListeners too. I just chose the simplest way for me.
- * Only two rows of data is populated on app startup. I can add more if you wish.
+ * Only two rows of employee data are populated on app startup. I can add more if you wish.
  * Please feel free to reach me in case you have any questions or suggestions regarding my implementation.
