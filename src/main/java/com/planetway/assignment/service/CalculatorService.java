@@ -1,5 +1,6 @@
 package com.planetway.assignment.service;
 
+import com.planetway.assignment.dto.CalculateResponse;
 import com.planetway.assignment.exception.InvalidParameterException;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class CalculatorService {
 
     private String[] OPS_ARRAY = {SUMMATION_OPERATION, SUBTRACTION_OPERATION, MULTIPLICATION_OPERATION, DIVISION_OPERATION};
 
-    public BigDecimal runCalculator(String operation, BigDecimal num1, BigDecimal num2) {
+    public CalculateResponse runCalculator(String operation, BigDecimal num1, BigDecimal num2) {
         // TODO find a better practice for input validation and a more efficient way than using if/else blocks
         if (operation == null) {
             throw new InvalidParameterException(InvalidParameterException.OPERATION_MISSING_MESSAGE);
@@ -30,7 +31,7 @@ public class CalculatorService {
         } else if (operation.equals(DIVISION_OPERATION) && BigDecimal.ZERO.compareTo(num2) == 0) {
             throw new InvalidParameterException(InvalidParameterException.DIVISOR_IS_ZERO_MESSAGE);
         } else {
-            return calculate(operation, num1, num2);
+            return new CalculateResponse(calculate(operation, num1, num2));
         }
     }
 

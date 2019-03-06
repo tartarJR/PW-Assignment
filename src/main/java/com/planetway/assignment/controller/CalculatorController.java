@@ -1,6 +1,7 @@
 package com.planetway.assignment.controller;
 
 import com.planetway.assignment.dto.CalculateRequest;
+import com.planetway.assignment.dto.CalculateResponse;
 import com.planetway.assignment.service.CalculatorService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,15 +17,15 @@ public class CalculatorController {
     }
 
     @GetMapping("/calculate")
-    public BigDecimal calculate(@RequestParam(value = "op") String operation,
-                                @RequestParam(value = "num1") BigDecimal num1,
-                                @RequestParam(value = "num2") BigDecimal num2) {
+    public CalculateResponse calculate(@RequestParam(value = "op") String operation,
+                                       @RequestParam(value = "num1") BigDecimal num1,
+                                       @RequestParam(value = "num2") BigDecimal num2) {
 
         return calculatorService.runCalculator(operation, num1, num2);
     }
 
     @PostMapping("/calculate")
-    public BigDecimal calculate(@RequestBody CalculateRequest calculateRequest) {
+    public CalculateResponse calculate(@RequestBody CalculateRequest calculateRequest) {
 
         String operation = calculateRequest.getOperation();
         BigDecimal num1 = calculateRequest.getNum1();
